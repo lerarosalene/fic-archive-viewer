@@ -11,6 +11,8 @@ browser tab automatically.
 
 ### Build it yourself
 
+Notice: you need `node` version 20.2 or higher.
+
 ```
 npm ci
 npm run codegen
