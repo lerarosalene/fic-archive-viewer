@@ -1,0 +1,160 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  min-height: 100vh;
+}
+
+.results-header {
+  margin-bottom: 0;
+}
+
+.home {
+  margin-bottom: 1.5em;
+}
+
+label {
+  white-space: nowrap;
+}
+
+form {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto 1fr;
+  gap: 8px;
+  padding-bottom: 32px;
+}
+
+.pagination-spacer {
+  pointer-events: none;
+  opacity: 0;
+
+  .pagination {
+    position: relative;
+  }
+}
+
+.pagination {
+  border-top: 1px solid hsla(0, 0%, 0%, 0.5);
+  padding: 8px;
+  background: #fff;
+  position: sticky;
+  display: flex;
+  gap: 8px;
+  bottom: 0px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.hint-label {
+  text-align: right;
+}
+
+.exclude-warnings-label {
+  grid-column: 1 / span 2;
+}
+
+.exclude-warnings-input {
+  grid-column: 3 / span 3;
+}
+
+.checkbox-group {
+  grid-column: 2 / span 4;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: auto auto 1fr;
+  padding-bottom: 16px;
+
+  input[type="checkbox"] {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+.checkbox-group-label {
+  grid-column: 1 / span 1;
+}
+
+.submit {
+  grid-column: 1 / span 5;
+}
+
+a {
+  &,
+  &:visited {
+    color: hsla(242, 62%, 61%, 1);
+  }
+
+  &:hover {
+    color: hsla(242, 62%, 35%, 1);
+  }
+}
+
+.results {
+  width: 800px;
+  margin: auto;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 32px;
+  box-sizing: border-box;
+}
+
+.main {
+  width: fit-content;
+  margin: auto;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.result {
+  border: 1px solid hsla(0, 0%, 0%, 0.5);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.chip {
+  border: 1px solid hsla(0, 0%, 0%, 0.5);
+  display: flex;
+  align-items: center;
+
+  &__title,
+  &__content {
+    padding: 4px;
+  }
+
+  &__title {
+    font-weight: bold;
+    border-right: 1px solid hsla(0, 0%, 0%, 0.5);
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+  }
+}

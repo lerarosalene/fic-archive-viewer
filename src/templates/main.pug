@@ -1,0 +1,42 @@
+doctype html
+
+html
+  head
+    meta(charset="utf-8")
+    title Fanfiction archive search
+    link(rel="stylesheet" href="/index.css")
+  body
+    div.main
+      h3 Fanfiction archive search
+      form#query
+        each generic in self.genericFields
+          - const andId = `${generic}And`;
+          - const orId = `${generic}Or`;
+
+          label(for=orId) #{generic}
+          label.hint-label(for=orId) at least one of these
+          input(id=orId value=self.query[orId])
+          label.hint-label(for=andId) all of these
+          input(id=andId value=self.query[andId])
+
+        label.exclude-warnings-label(for="WarningsExclude") Exclude warnings
+        input.exclude-warnings-input#WarningsExclude(value=self.query.WarningsExclude)
+
+        label.checkbox-group-label Languages
+        div.checkbox-group#languages
+          each entry in self.languages
+            - const [code, language] = entry
+            label(for=`lang-${code}`) #{language}
+            input(type="checkbox" id=`lang-${code}` data-language=code)
+            div
+
+        label.checkbox-group-label Sources
+        div.checkbox-group#sources
+          each entry in self.sources
+            - const [code, name] = entry
+            label(for=`source-${code}`) #{name}
+            input(type="checkbox" id=`source-${code}` data-source=code)
+            div
+
+        button.submit(type="submit") Search
+      script(src="/search.js")

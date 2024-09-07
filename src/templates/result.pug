@@ -1,0 +1,19 @@
+doctype html
+
+include pagination.pug
+include story.pug
+
+html
+  head
+    meta(charset="utf-8")
+    link(rel="stylesheet" href="/index.css")
+    title Search results (#{self.from}-#{self.to} of #{self.length})
+  body
+    div.results#results
+      h3.results-header Search results (#{self.from}-#{self.to} of #{self.length})
+      a.home(href=self.backURL) Change search query
+      div.results-container
+        each story in self.stories
+          +story(story)
+    +pagination("pagination")
+    script(src="/results.js")

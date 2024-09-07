@@ -1,0 +1,12 @@
+mixin pagination(id)
+  if self.pagination.length !== 0
+    div.pagination(id=id)
+      span Page
+      each item in self.pagination
+        if item.__type === "page"
+          if item.active
+            a(href=item.link) #{item.number}
+          else
+            span #{item.number}
+        else
+          span …

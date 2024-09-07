@@ -1,0 +1,17 @@
+mixin story(story)
+  div.result
+    .title #{story.Title}
+    div #{story.Summary}
+    .chips
+      each chip in story.Chips
+        .chip
+          .chip__title #{chip.title}
+          .chip__content
+            if chip.link
+              a(href=chip.link target="_blank") #{chip.content}
+            else
+              span #{chip.content}
+    div
+      a(href=story.StoryURL target="_blank") Original story
+      span &nbsp;/&nbsp;
+      a(href=`/download/${encodeURIComponent(story.fullID)}/${encodeURIComponent(story.Filename)}`) Get EPUB

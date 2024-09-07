@@ -1,0 +1,5 @@
+{
+  "main": "dist/fic-archive-viewer.js",
+  "output": "dist/fic-archive-viewer.blob",
+  "disableExperimentalSEAWarning": true
+}
