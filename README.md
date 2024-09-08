@@ -29,7 +29,11 @@ bundle into archive root instead of `.exe` and run it with `node fic-archive-vie
 1. `ARCHIVE_PATH` - Where application looks for archive. Defaults to directory where `.exe`/`.js` is.
 2. `BIND_PORT` - Which port to listen. Defaults to 0 (system assigns random available port). You can set it manually
 to avoid port changing every run.
-3. `NO_OPEN` - set it to prevent viewer from opening browser tab.
+3. `BIND_ADDRESS` - Which network interface to bind to. Defaults to `127.0.0.1` (loopback). Set it to `0.0.0.0` to
+listen for incoming connections. Use this option only in local network; to publish interface to the internet, use
+reverse proxy with SSL.
+4. `NO_OPEN` - set it to prevent viewer from opening browser tab.
+5. `DARK_MODE` - set it to enable experimental dark mode.
 
 ### TODO
 
