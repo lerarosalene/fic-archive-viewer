@@ -2,11 +2,12 @@ doctype html
 
 include pagination.pug
 include story.pug
+include styles.pug
 
 html
   head
     meta(charset="utf-8")
-    link(rel="stylesheet" href="/index.css")
+    +styles(self.darkMode)
     title Search results (#{self.from}-#{self.to} of #{self.length})
   body
     div.results#results

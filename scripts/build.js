@@ -35,6 +35,7 @@ async function main() {
     loader: {
       ".css": "text",
       ".txt": "text",
+      ".svg": "text",
     },
     define: { "import.meta.url": `_importMetaUrl` },
     banner: {

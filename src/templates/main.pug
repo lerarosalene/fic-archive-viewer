@@ -1,13 +1,27 @@
 doctype html
 
+include styles.pug
+
 html
   head
     meta(charset="utf-8")
     title Fanfiction archive search
-    link(rel="stylesheet" href="/index.css")
+    +styles(self.darkMode)
   body
     div.main
-      h3 Fanfiction archive search
+      div.header-row
+        h3.no-margin Fanfiction archive search
+        div.help-wrapper
+          img.help-icon(src="/help.svg")
+          div.instructions
+            span
+              | You can write tokens separated by commas into every 
+              | text field in following form. Example: entering 
+              | "foo, bar" into "Title (at least one of these)" field 
+              | will search for works that contain either "foo" or "bar"
+              | in title. Entering  "foo, bar" into "Title (all of these)"
+              | field will search for works that contain both "foo" or
+              | "bar" in title in any order.
       form#query
         each generic in self.genericFields
           - const andId = `${generic}And`;
@@ -22,21 +36,21 @@ html
         label.exclude-warnings-label(for="WarningsExclude") Exclude warnings
         input.exclude-warnings-input#WarningsExclude(value=self.query.WarningsExclude)
 
-        label.checkbox-group-label Languages
-        div.checkbox-group#languages
-          each entry in self.languages
-            - const [code, language] = entry
-            label(for=`lang-${code}`) #{language}
-            input(type="checkbox" id=`lang-${code}` data-language=code)
-            div
+        div.boxes
+          label Languages
+          div.checkbox-group.col2#languages
+            each entry in self.languages
+              - const [code, language] = entry
+              label(for=`lang-${code}`) #{language}
+              input(type="checkbox" id=`lang-${code}` data-language=code)
 
-        label.checkbox-group-label Sources
-        div.checkbox-group#sources
-          each entry in self.sources
-            - const [code, name] = entry
-            label(for=`source-${code}`) #{name}
-            input(type="checkbox" id=`source-${code}` data-source=code)
-            div
+          label(style="text-align: right") Sources
+          div.checkbox-group#sources
+            each entry in self.sources
+              - const [code, name] = entry
+              label(for=`source-${code}`) #{name}
+              input(type="checkbox" id=`source-${code}` data-source=code)
+              div
 
         button.submit(type="submit") Search
       script(src="/search.js")

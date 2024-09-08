@@ -101,27 +101,4 @@ function fillFromSearch() {
   }
 }
 
-function fixCheckboxGroupWidths() {
-  const labels = Array.from(document.querySelectorAll(".checkbox-group label"));
-  if (labels.length === 0) {
-    return;
-  }
-
-  let maxWidth = labels[0].getBoundingClientRect().width;
-  for (let i = 1; i < labels.length; ++i) {
-    const width = labels[i].getBoundingClientRect().width;
-    if (width > maxWidth) {
-      maxWidth = width;
-    }
-  }
-
-  for (const label of labels) {
-    if (!(label instanceof HTMLElement)) {
-      continue;
-    }
-    label.style.width = `${(maxWidth + 1).toFixed(0)}px`;
-  }
-}
-
-fixCheckboxGroupWidths();
 fillFromSearch();

@@ -1,6 +1,7 @@
 import express from "express";
 import open from "open";
 import type qs from "qs";
+import type net from "node:net";
 
 import { App } from "./App";
 import result from "./templates/result";
@@ -8,6 +9,8 @@ import main from "./templates/main";
 import css from "./generated/index.css";
 import searchJS from "./generated/search.js.txt";
 import resultsJS from "./generated/results.js.txt";
+import helpIcon from "../assets/help.svg";
+import darkCss from "./generated/dark.css";
 import { createBackURL } from "./search";
 import { generateGenericFields } from "./generateGenericFields";
 import { getPages } from "./getPages";
@@ -35,6 +38,7 @@ server.get("/", (req, res) => {
     languages: app.languages,
     sources: app.sources,
     genericFields,
+    darkMode: Boolean(process.env.DARK_MODE),
   });
   res.send(html);
 });
@@ -66,6 +70,7 @@ server.get("/search", (req, res) => {
     length: fanfics.length,
     backURL: createBackURL(query),
     pagination,
+    darkMode: Boolean(process.env.DARK_MODE),
   });
 
   res.header("Content-Type", "text/html");
@@ -86,6 +91,16 @@ server.get("/search.js", (_, res) => {
 server.get("/results.js", (_, res) => {
   res.header("Content-Type", "text/javascript");
   res.send(resultsJS);
+});
+
+server.get("/help.svg", (_, res) => {
+  res.header("Content-Type", "image/svg+xml");
+  res.send(helpIcon);
+});
+
+server.get("/dark.css", (_, res) => {
+  res.header("Content-Type", "text/css");
+  res.send(darkCss);
 });
 
 server.get("/download/:id/:filename", (req, res) => {
@@ -109,23 +124,25 @@ async function start() {
   process.stdout.write("Loading fanfics... ");
   await app.initialize();
   process.stdout.write("Done!\n");
-  const port = await new Promise<number>((resolve, reject) => {
+  const address = await new Promise<net.AddressInfo>((resolve, reject) => {
     let httpServer = server.listen(
       process.env.BIND_PORT ? Number(process.env.BIND_PORT) : 0,
-      "127.0.0.1",
+      process.env.BIND_ADDRESS || "127.0.0.1",
       () => {
         const address = httpServer.address();
         if (address === null || typeof address === "string") {
           return void reject(new Error("Can't start server"));
         }
-        resolve(address.port);
+        resolve(address);
       },
     );
   });
-  process.stdout.write(`Server listening on http://127.0.0.1:${port}\n`);
+  process.stdout.write(
+    `Server listening on http://127.0.0.1:${address.port} (bind ${address.family} ${address.address})\n`,
+  );
   if (!process.env.NO_OPEN) {
     process.stdout.write("Opening browser... ");
-    await open(`http://127.0.0.1:${port}/`);
+    await open(`http://127.0.0.1:${address.port}/`);
     process.stdout.write("Done!\n");
   }
 }

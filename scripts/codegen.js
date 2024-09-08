@@ -47,6 +47,13 @@ async function main() {
   const css = await less.render(lessTemplate, { compress: true });
   await fsp.writeFile(path.join("src", "generated", "index.css"), css.css);
 
+  const darkTemplate = await fsp.readFile(
+    path.join("src", "client", "dark.less"),
+    "utf-8"
+  );
+  const darkCss = await less.render(darkTemplate, { compress: true });
+  await fsp.writeFile(path.join("src", "generated", "dark.css"), darkCss.css);
+
   await esbuild.build({
     entryPoints: [path.join("src", "client", "search.ts")],
     outfile: path.join("src", "generated", "search.js.txt"),
